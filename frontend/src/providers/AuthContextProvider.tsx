@@ -1,25 +1,36 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLoadingContext } from "./LoadingContextProvider";
 import { getToken } from "../api/auth";
+import { useNavigate } from "react-router";
+import type { Props } from "../interfaces/Props";
 
 const AuthContext = createContext<{
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   authenticate: () => Promise<void>;
   token?: string | null;
+  login: () => void;
 }>({
   isAuthenticated: false,
   setIsAuthenticated: () => {},
   authenticate: async () => {},
-  token: null
+  token: null,
+  login: () => {},
 });
 
 export const useAuthContext = () => useContext(AuthContext);
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
+export const AuthContextProvider = ({ children }: Props) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Check localStorage first
+    if (localStorage.getItem("auth_token")) return true;
+    // Check URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.has("token");
+  });
+  const [token, setToken] = useState<string | null>(localStorage.getItem("auth_token"));
   const { setIsLoading } = useLoadingContext();
+  const navigate = useNavigate();
 
   const authenticate = async () => {
     setIsLoading(true);
@@ -36,8 +47,25 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     }
   };
 
+  const login = () => {
+    window.location.href = "http://localhost:8001/auth/login";
+  }
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get("token");
+
+    if (tokenFromUrl) {
+      localStorage.setItem("auth_token", tokenFromUrl);
+      setToken(tokenFromUrl);
+      setIsAuthenticated(true);
+      // Remove token from URL and navigate to home
+      navigate("/", { replace: true });
+    }
+  }, [navigate]);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, authenticate, token }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, authenticate, token, login}}>
       {children}
     </AuthContext.Provider>
   );

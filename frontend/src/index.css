@@ -5,3 +5,120 @@
   font-family: sans-serif;
 }
 
+html {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.page-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.page-layout main {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+nav {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+nav a {
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.active {
+  border: 1px solid #afafaf;
+  border-radius: 8px 12px;
+  font-weight: bold;
+}
+
+.login-btn {
+  background-color: transparent;
+  border: 1px solid green;
+  border-radius: 5px;
+  color: green;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 20px auto;
+  display: block;
+}
+
+.login-btn:hover {
+  background-color: green;
+  color: white;
+}
+
+.card {
+  background-color: transparent;
+  border: 1px solid gray;
+  border-radius: 8px;
+  color: white;
+  display: block;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.2s;
+  width: 50%;
+}
+
+.copy {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.post {
+  margin: 20px auto;
+}
+
+.post h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post p {
+  line-height: 1.6;
+  margin: 10px 30px;
+  text-align: justify;
+}
+
+.btn {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin:  20px;
+  padding: 10px 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+.input-group label {
+  margin-bottom: 5px;
+}
+.input-group input,
+.input-group textarea {
+  background-color: lightgray;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  height: fit-content;
+  margin: 10px;
+  padding: 8px;
+}
