@@ -9,3 +9,5 @@ Blog helper se sastoji od 3 mikroservisa:
 3. POSTS API - služi interakciji s blog postovima u bazi podataka
 
 Pored toga, postoji i frontend React aplikacija koja prikazuje cijeli UI aplikacije koja koristi ta 3 mikroservisa.
+
+VIDEO:  https://www.loom.com/share/db93d7901fc0487e9cf1ac418c5c373a
