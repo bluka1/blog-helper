@@ -1,6 +1,7 @@
+import { AI_API_URL } from "../../constants";
 
 export const generateBlog = async (title: string) => {
-  const response = await fetch('http://localhost:8003/ai-complete', {
+  const response = await fetch(`${AI_API_URL}/ai-complete`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

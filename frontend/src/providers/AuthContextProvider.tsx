@@ -3,6 +3,7 @@ import { useLoadingContext } from "./LoadingContextProvider";
 import { getToken } from "../api/auth";
 import { useNavigate } from "react-router";
 import type { Props } from "../interfaces/Props";
+import { AUTH_SERVICE_URL } from "../constants";
 
 const AuthContext = createContext<{
   isAuthenticated: boolean;
@@ -48,7 +49,7 @@ export const AuthContextProvider = ({ children }: Props) => {
   };
 
   const login = () => {
-    window.location.href = "http://localhost:8001/auth/login";
+    window.location.href = `${AUTH_SERVICE_URL}/login`;
   }
 
   useEffect(() => {

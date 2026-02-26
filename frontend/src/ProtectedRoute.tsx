@@ -1,11 +1,18 @@
-import { Navigate } from "react-router-dom"
+import { useEffect } from "react"
 import { useAuthContext } from "./providers/AuthContextProvider"
 import type { Props } from "./interfaces/Props";
 
 export const ProtectedRoute = ({children}: Props) => {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, login } = useAuthContext();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      login();
+    }
+  }, [isAuthenticated]);
+
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />
+    return null;
   }
   return children;
 }
