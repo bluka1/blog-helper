@@ -20,7 +20,7 @@ class Post(SQLModel, table=True):
   user_id: int = Field(foreign_key="users.id")
   created_at: datetime.datetime = Field(default=datetime.datetime.utcnow)
 
-sqlite_file_name = "database.db"
+sqlite_file_name = "/app/data/database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 engine = create_engine(sqlite_url, echo=True)
