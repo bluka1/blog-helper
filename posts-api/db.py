@@ -10,7 +10,7 @@ class User(SQLModel, table=True):
   username: str = Field(unique=True, nullable=False)
   email: str = Field(unique=True, nullable=False)
   auth0_id: str = Field(unique=True, nullable=False)
-  created_at: datetime.datetime = Field(default=datetime.datetime.utcnow)
+  created_at: datetime.datetime = Field(default_factory=datetime.datetime.now)
 
 class Post(SQLModel, table=True):
   __tablename__ = "posts"
@@ -18,9 +18,15 @@ class Post(SQLModel, table=True):
   title: str = Field(nullable=False)
   content: str = Field(nullable=False)
   user_id: int = Field(foreign_key="users.id")
-  created_at: datetime.datetime = Field(default=datetime.datetime.utcnow)
+  created_at: datetime.datetime = Field(default_factory=datetime.datetime.now)
+  updated_at: datetime.datetime | None = Field(default=None)
 
-sqlite_file_name = "/app/data/database.db"
+class PostCreate(SQLModel):
+  title: str
+  content: str
+  user_id: int
+
+sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 engine = create_engine(sqlite_url, echo=True)
@@ -36,7 +42,7 @@ def create_db_and_tables():
         session.commit()
         session.refresh(user)
       for i in range(1, 100):
-        post = Post(title=faker.sentence(nb_words=5), content=faker.paragraph(nb_sentences=20), user_id=((i-1) % 9) + 1, created_at=faker.date_time_this_year())
+        post = Post(title=faker.sentence(nb_words=5), content=faker.paragraph(nb_sentences=20), user_id=((i-1) % 9) + 1, created_at=faker.date_time_this_year(), updated_at=None)
         session.add(post)
         session.commit()
         session.refresh(post)
