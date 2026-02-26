@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - blog-network
+    depends_on:
+      - auth-service
+      - posts-api
+      - ai-api
+      - frontend
+
+  auth-service:
+    build: ./auth-service
+    env_file:
+      - ./auth-service/.env
+    networks:
+      - blog-network
+    deploy:
+      replicas: 2
+
+  posts-api:
+    build: ./posts-api
+    volumes:
+      - posts-db:/app/data
+    networks:
+      - blog-network
+    deploy:
+      replicas: 2
+
+  ai-api:
+    build: ./ai-api
+    environment:
+      - OLLAMA_URL=http://host.docker.internal:11434
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    networks:
+      - blog-network
+    deploy:
+      replicas: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_AUTH_SERVICE_URL=http://localhost/auth
+        - VITE_POSTS_API_URL=http://localhost/posts
+        - VITE_AI_API_URL=http://localhost/ai
+    ports:
+      - '5173:80'
+    networks:
+      - blog-network
+    depends_on:
+      - auth-service
+      - posts-api
+      - ai-api
+
+volumes:
+  posts-db:
+
+networks:
+  blog-network:
+    driver: bridge
