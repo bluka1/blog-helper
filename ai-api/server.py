@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import aiohttp
 import uvicorn
+import os
 from fastapi.middleware.cors import CORSMiddleware
 from schemas.AICompleteRequest import AICompleteRequest
 
@@ -23,7 +24,8 @@ app.add_middleware(
 @app.post("/ai-complete")
 async def ai_complete(request: AICompleteRequest):
   async with aiohttp.ClientSession() as session:
-    res = await session.post('http://localhost:11434/api/chat', json={
+    ollama_url = os.getenv("OLLAMA_URL")
+    res = await session.post(f'{ollama_url}/api/chat', json={
       "model": "gemma3",
       "messages": [
         {
