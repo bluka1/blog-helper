@@ -24,7 +24,6 @@ class Post(SQLModel, table=True):
 class PostCreate(SQLModel):
   title: str
   content: str
-  user_id: int
 
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
