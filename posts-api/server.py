@@ -27,12 +27,14 @@ def on_startup():
 def build_post_response(post: Post, session: Session) -> PostResponse:
   author = session.get(User, post.user_id)
   author_name = author.username if author else "Unknown"
+  author_auth0_id = author.auth0_id if author else ""
   return PostResponse(
     id=post.id,
     title=post.title,
     content=post.content,
     user_id=post.user_id,
     author_name=author_name,
+    author_auth0_id=author_auth0_id,
     created_at=post.created_at,
     updated_at=post.updated_at,
   )

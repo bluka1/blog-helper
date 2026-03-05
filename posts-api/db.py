@@ -35,6 +35,7 @@ class PostResponse(SQLModel):
   content: str
   user_id: int
   author_name: str
+  author_auth0_id: str
   created_at: datetime.datetime
   updated_at: datetime.datetime | None
 
