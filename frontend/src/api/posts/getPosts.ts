@@ -1,16 +1,11 @@
 import { POSTS_API_URL } from "../../constants";
+import { apiFetch } from "../client";
+import type { Post } from "../../interfaces/Post";
 
-export const getPosts = async () => {
-  const response = await fetch(POSTS_API_URL, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
+export const getPosts = async (): Promise<Post[]> => {
+  const response = await apiFetch(`${POSTS_API_URL}`);
   if (!response.ok) {
     throw new Error('Failed to fetch posts');
   }
-  const data = await response.json();
-  
-  return data;
+  return response.json();
 }
