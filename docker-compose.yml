@@ -26,6 +26,8 @@ services:
 
   posts-api:
     build: ./posts-api
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:8001
     volumes:
       - posts-db:/app/data
     networks:
