@@ -1,4 +1,6 @@
 import datetime
+import fcntl
+import os
 from sqlmodel import Session, Field, SQLModel, create_engine
 from faker import Faker
 
@@ -39,10 +41,11 @@ class PostResponse(SQLModel):
   created_at: datetime.datetime
   updated_at: datetime.datetime | None
 
-sqlite_file_name = "database.db"
+os.makedirs("/app/data", exist_ok=True) # create data directory if it doesn't exist
+sqlite_file_name = "/app/data/database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
-engine = create_engine(sqlite_url, echo=True)
+engine = create_engine(sqlite_url, echo=True, connect_args={"check_same_thread": False, "timeout": 30})
 
 def create_db_and_tables():
   SQLModel.metadata.create_all(engine)
