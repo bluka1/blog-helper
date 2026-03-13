@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import type { Post } from './interfaces/Post';
+import type { Post } from '../interfaces';
 
 interface CardProps extends Pick<
 	Post,

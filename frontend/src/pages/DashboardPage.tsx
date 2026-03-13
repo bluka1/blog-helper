@@ -1,6 +1,6 @@
-import { Card } from './Card';
-import type { Post } from './interfaces/Post';
-import { usePostsContext } from './providers/PostsProvider';
+import { Card } from '../components';
+import type { Post } from '../interfaces';
+import { usePostsContext } from '../providers';
 
 export const DashboardPage = () => {
 	const { posts } = usePostsContext();

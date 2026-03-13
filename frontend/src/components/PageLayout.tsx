@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useAuthContext } from './providers/AuthContextProvider';
+import { useAuthContext } from '../providers';
 
 export const PageLayout = ({ children }: { children: React.ReactNode }) => {
 	const { currentUser, logout, isAuthenticated } = useAuthContext();
