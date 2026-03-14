@@ -14,10 +14,10 @@ export const PostCard = ({
 	return (
 		<NavLink className='card' to={`/${id}`}>
 			<h2>{title}</h2>
-			<p>
-				By {author_name} | {formattedDate}
-			</p>
 			<p>{excerpt}</p>
+			<p>
+				By {author_name} on {formattedDate}
+			</p>
 		</NavLink>
 	);
 };

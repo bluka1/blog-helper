@@ -81,10 +81,15 @@ nav a {
 }
 
 .card {
+	align-items: center;
 	background-color: transparent;
 	border: 1px solid gray;
 	border-radius: 8px;
 	color: white;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	justify-content: center;
 	margin: 30px auto;
 	padding: 20px;
 	text-align: center;
