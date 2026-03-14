@@ -8,21 +8,23 @@ export const PageLayout = ({ children }: { children: React.ReactNode }) => {
 		<div className='page-layout'>
 			<header>
 				<h1>Blog Helper</h1>
-				<nav>
-					<NavLink
-						to='/'
-						className={({ isActive }) => (isActive ? 'active' : '')}
-					>
-						Home
-					</NavLink>{' '}
-					|{' '}
-					<NavLink
-						to='/create'
-						className={({ isActive }) => (isActive ? 'active' : '')}
-					>
-						Create post
-					</NavLink>
-				</nav>
+				{isAuthenticated && (
+					<nav>
+						<NavLink
+							to='/'
+							className={({ isActive }) => (isActive ? 'active' : '')}
+						>
+							Home
+						</NavLink>{' '}
+						|{' '}
+						<NavLink
+							to='/create'
+							className={({ isActive }) => (isActive ? 'active' : '')}
+						>
+							Create post
+						</NavLink>
+					</nav>
+				)}
 				{isAuthenticated && (
 					<div>
 						{currentUser?.name && (

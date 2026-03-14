@@ -4,3 +4,4 @@ export * from './CurrentUser';
 export * from './AuthContextValue';
 export * from './ChildrenProp';
 export * from './PostCardProps';
+export * from './InputGroupProps';

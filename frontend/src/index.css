@@ -147,3 +147,59 @@ nav a {
 	margin: 10px;
 	padding: 8px;
 }
+
+.title-suggestions-container {
+	animation: slide-in-from-top 0.3s ease-out;
+}
+
+.title-suggestions {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	list-style-type: none;
+	padding: 0;
+}
+.title-suggestions li {
+	margin: 0;
+	padding: 0;
+}
+
+.title-suggestions .btn:active {
+	transform: scale(0.96);
+	opacity: 0.7;
+	transition: transform 0.1s, opacity 0.1s;
+}
+
+.loading-indicator {
+	align-items: center;
+	display: flex;
+	gap: 8px;
+	margin: 10px 20px;
+	opacity: 0.8;
+}
+
+.loading-spinner {
+	animation: spin 0.8s linear infinite;
+	border: 2px solid rgba(255, 255, 255, 0.3);
+	border-radius: 50%;
+	border-top-color: white;
+	display: inline-block;
+	flex-shrink: 0;
+	height: 16px;
+	width: 16px;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}
+
+@keyframes slide-in-from-top {
+	from {
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
