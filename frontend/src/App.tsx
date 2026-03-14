@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router';
 
-import { CreateNewPostPage, DashboardPage } from './pages';
+import { CreateNewPostPage, DashboardPage, EditPostPage } from './pages';
 import { PageLayout, Post, ProtectedRoute } from './components';
 import { useAuthContext } from './providers';
 
@@ -36,6 +36,14 @@ export default function App() {
 					element={
 						<ProtectedRoute>
 							<Post />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/:id/edit'
+					element={
+						<ProtectedRoute>
+							<EditPostPage />
 						</ProtectedRoute>
 					}
 				/>
