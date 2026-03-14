@@ -11,7 +11,7 @@ function parseJwtPayload(token: string): CurrentUser | null {
 	try {
 		const payload = JSON.parse(atob(token.split('.')[1]));
 		return {
-			auth0_id: payload.sub ?? '',
+			auth0_id: payload.auth0_id ?? payload.sub ?? '',
 			name: payload.name ?? payload.email ?? '',
 			email: payload.email ?? '',
 		};

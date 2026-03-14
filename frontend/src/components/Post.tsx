@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { getPost, deletePost } from '../api/posts';
-import { useAuthContext } from '../providers';
+import { useAuthContext, usePostsContext } from '../providers';
 import type { Post as PostType } from '../interfaces';
 
 export const Post = () => {
@@ -11,6 +11,7 @@ export const Post = () => {
 	const [error, setError] = useState<string | null>(null);
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
+	const { refreshPosts } = usePostsContext();
 
 	useEffect(() => {
 		if (!id) return;
@@ -32,6 +33,7 @@ export const Post = () => {
 			return;
 		try {
 			await deletePost(post.id);
+			refreshPosts();
 			navigate('/');
 		} catch {
 			setError('Failed to delete post.');
