@@ -1,4 +1,4 @@
-export * from './Card';
+export * from './PostCard';
 export * from './PageLayout';
 export * from './Post';
 export * from './ProtectedRoute';

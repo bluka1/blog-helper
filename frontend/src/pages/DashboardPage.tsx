@@ -1,4 +1,4 @@
-import { Card } from '../components';
+import { PostCard } from '../components';
 import type { Post } from '../interfaces';
 import { usePostsContext } from '../providers';
 
@@ -9,7 +9,7 @@ export const DashboardPage = () => {
 			<h2>Blog posts</h2>
 			<section className='posts-container'>
 				{posts?.map((post: Post) => (
-					<Card
+					<PostCard
 						key={post.id}
 						id={post.id}
 						title={post.title}

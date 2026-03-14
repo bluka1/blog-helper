@@ -1,20 +1,13 @@
 import { NavLink } from 'react-router';
-import type { Post } from '../interfaces';
+import type { PostCardProps } from '../interfaces';
 
-interface CardProps extends Pick<
-	Post,
-	'id' | 'title' | 'author_name' | 'created_at'
-> {
-	excerpt: string;
-}
-
-export const Card = ({
+export const PostCard = ({
 	id,
 	title,
 	author_name,
 	created_at,
 	excerpt,
-}: CardProps) => {
+}: PostCardProps) => {
 	const formattedDate = created_at
 		? new Date(created_at).toLocaleDateString()
 		: null;
