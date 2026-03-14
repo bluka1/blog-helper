@@ -58,7 +58,9 @@ def login():
   return RedirectResponse(url)
 
 @app.get("/auth/callback")
-async def callback(code: str):
+async def callback(code: str = None, error: str = None):
+  if error or not code:
+    return RedirectResponse(url=FRONTEND_URL)
   async with aiohttp.ClientSession() as session:
     # zamijena koda za token
     async with session.post(
