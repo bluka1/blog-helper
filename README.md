@@ -1,6 +1,6 @@
 # Blog helper
 
-|          |                                                                                                                    |
+| Polja    | Podaci                                                                                                             |
 | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | Student  | Luka Batarelo                                                                                                      |
 | Fakultet | [Fakultet informatike u Puli](https://fipu.unipu.hr/)                                                              |
