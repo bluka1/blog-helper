@@ -1,0 +1,26 @@
+@startuml Arhitektura
+
+title Blog Helper - Arhitektura sustava
+
+skinparam componentStyle rectangle
+
+cloud "Auth0" as auth0
+cloud "Ollama\n(:11434, gemma3)" as ollama
+
+component "Blog Helper\n(frontend, :5173)" as fe
+component "Auth service\n(:8001)" as auth
+component "Posts API\n(:8002)" as posts
+component "AI API\n(:8003)" as ai
+database "SQLite\n(posts-db)" as db
+
+fe <--> auth0 : OAuth2 redirect / token
+auth <--> auth0 : OAuth2
+fe <--> auth : login / verify
+fe <--> posts : CRUD objava
+fe <--> ai : generiranje sadrzaja
+
+posts <--> auth : verify-token
+posts --> db
+ai --> ollama : POST /api/chat
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml Prijava-u-sustav
+
+title Dijagram slijeda - Prijava u sustav
+
+actor "Korisnik" as User
+participant "Frontend" as Frontend
+participant "Auth Service" as AuthService
+participant "Auth0" as Auth0
+
+User -> Frontend : Klik na "Login"
+Frontend -> AuthService : GET /login
+AuthService -> Auth0 : Preusmjeravanje na Auth0
+Auth0 -> User : Prikaz forme za prijavu
+User -> Auth0 : Unos korisničkih podataka
+Auth0 -> AuthService : GET /callback?code=...
+AuthService -> Auth0 : Razmjena auth koda za token
+Auth0 --> AuthService : access_token
+AuthService -> Auth0 : GET /userinfo
+Auth0 --> AuthService : auth0_id, email, name
+AuthService -> AuthService : Generiranje JWT-a
+AuthService --> Frontend : Preusmjeravanje na /?token=JWT
+Frontend -> Frontend : Pohrana JWT u localStorage
+Frontend --> User : Prikaz dashboard stranice
+
+@enduml

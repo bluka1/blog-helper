@@ -1,0 +1,30 @@
+@startuml Blog-Helper-Class
+
+title Blog Helper - Klasni dijagram (domenski model)
+
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor LightBlue
+  BorderColor DarkBlue
+}
+
+class User {
+  +id : int
+  +username : String
+  +email : String
+  +auth0_id : String
+  +created_at : DateTime
+}
+
+class Post {
+  +id : int
+  +title : String
+  +content : String
+  +user_id : int
+  +created_at : DateTime
+  +updated_at : DateTime [0..1]
+}
+
+User "1" *-- "0..*" Post : kreira >
+
+@enduml

@@ -1,0 +1,52 @@
+@startuml Blog-Helper
+
+title Blog Helper - Dijagram obrazaca uporabe
+
+left to right direction
+
+skinparam usecase {
+  BackgroundColor LightBlue
+  BorderColor DarkBlue
+}
+skinparam actor {
+  BorderColor Black
+}
+
+actor "Korisnik" as User
+actor "Auth0" as Auth0 <<sustav>>
+actor "Ollama AI" as Ollama <<sustav>>
+
+rectangle "Blog Helper" {
+  usecase "Prijava u sustav" as UC_Login
+  usecase "Odjava iz sustava" as UC_Logout
+  usecase "Pregled liste objava" as UC_ViewPosts
+  usecase "Pregled objave" as UC_ViewPost
+  usecase "Kreiranje objave" as UC_CreatePost
+  usecase "Uređivanje objave" as UC_EditPost
+  usecase "Brisanje objave" as UC_DeletePost
+  usecase "Autentikacija\nprekо Auth0" as UC_Auth
+  usecase "Generiranje sadržaja" as UC_GenerateContent
+  usecase "Predlaganje naslova" as UC_SuggestTitle
+  usecase "Poboljšanje teksta" as UC_ImproveText
+}
+
+User --> UC_Login
+User --> UC_Logout
+User --> UC_ViewPosts
+User --> UC_ViewPost
+User --> UC_CreatePost
+User --> UC_EditPost
+User --> UC_DeletePost
+
+UC_Login ..> UC_Auth : <<include>>
+UC_Auth --> Auth0
+
+UC_GenerateContent ..> UC_CreatePost : <<extend>>
+UC_SuggestTitle ..> UC_CreatePost : <<extend>>
+UC_ImproveText ..> UC_EditPost : <<extend>>
+
+UC_GenerateContent --> Ollama
+UC_SuggestTitle --> Ollama
+UC_ImproveText --> Ollama
+
+@enduml

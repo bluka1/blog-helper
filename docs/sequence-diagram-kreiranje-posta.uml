@@ -1,0 +1,48 @@
+@startuml Kreiranje-objave
+
+title Dijagram slijeda - Kreiranje objave uz AI asistenciju
+
+actor "Korisnik" as User
+participant "CreateNewPostPage" as Page
+participant "AI API" as AIAPI
+participant "Ollama" as Ollama
+participant "Posts API" as PostsAPI
+
+User -> Page : Unos naslova objave
+User -> Page : Klik "Generate content"
+Page -> AIAPI : POST /ai-complete/stream\n{prompt}
+AIAPI -> Ollama : POST /api/chat (streaming)
+
+loop Streaming odgovora
+  Ollama --> AIAPI : token
+  AIAPI --> Page : SSE (data: token)
+  Page --> User : Prikaz generiranog teksta u realnom vremenu
+end
+
+opt Predlaganje naslova
+  User -> Page : Klik "Suggest title"
+  Page -> AIAPI : POST /ai-suggest-title\n{content}
+  AIAPI -> Ollama : POST /api/chat
+  Ollama --> AIAPI : prijedlozi naslova
+  AIAPI --> Page : string[]
+  Page --> User : Prikaz prijedloga naslova
+end
+
+opt Poboljšanje teksta
+  User -> Page : Klik "Improve text"
+  Page -> AIAPI : POST /ai-improve\n{content}
+  AIAPI -> Ollama : POST /api/chat
+  Ollama --> AIAPI : poboljšan tekst
+  AIAPI --> Page : string
+  Page --> User : Prikaz prijedloga poboljšanog teksta
+  User -> Page : Klik "Accept suggestion"
+  Page --> User : Zamjena sadržaja poboljšanim tekstom
+end
+
+User -> Page : Klik "Submit"
+Page -> PostsAPI : POST /posts\n{title, content}\nAuthorization: Bearer JWT
+PostsAPI -> PostsAPI : Pohrana objave u SQLite bazu
+PostsAPI --> Page : PostResponse (HTTP 201)
+Page --> User : Preusmjeravanje na post
+
+@enduml

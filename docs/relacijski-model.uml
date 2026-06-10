@@ -1,0 +1,28 @@
+@startuml Relacijski-model
+
+title Blog Helper - Relacijski model
+
+skinparam linetype ortho
+
+entity "user" as user {
+  * id : INTEGER <<PK>>
+  --
+  * username : VARCHAR <<UNIQUE>>
+  * email : VARCHAR <<UNIQUE>>
+  * auth0_id : VARCHAR <<UNIQUE>>
+  * created_at : DATETIME
+}
+
+entity "post" as post {
+  * id : INTEGER <<PK>>
+  --
+  * title : VARCHAR
+  * content : TEXT
+  * user_id : INTEGER <<FK>>
+  * created_at : DATETIME
+  updated_at : DATETIME
+}
+
+user ||--o{ post : "pise"
+
+@enduml
