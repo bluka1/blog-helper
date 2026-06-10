@@ -25,7 +25,7 @@ Dostupan na: [figma](https://www.figma.com/design/yIBX113Jnea3tuz2TvU8Zz/Blog-he
 
 ## Video
 
-Dostupan na: [youtube]()
+Dostupan na: [youtube](https://youtu.be/BuSLMmN5p_4)
 
 ## Pokretanje aplikacije
 
